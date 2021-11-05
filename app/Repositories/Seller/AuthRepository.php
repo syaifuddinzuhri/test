@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repositories\Admin;
+namespace App\Repositories\Seller;
 
 use Exception;
 use Illuminate\Support\Facades\Auth;
@@ -12,13 +12,13 @@ class AuthRepository
     public function login($request)
     {
         try {
-            $credentials = $request->only(['username', 'password']);
+            $credentials = $request->only(['email', 'password']);
 
-            if (!$token = auth('admin')->attempt($credentials)) {
-                throw new Exception("Username or password is wrong!", 401);
+            if (!$token = auth('seller')->attempt($credentials)) {
+                throw new Exception("Email or password is wrong!", 401);
             };
-            $jwt = auth('admin')->payload()->toArray();
-            $data = auth('admin')->user();
+            $jwt = auth('seller')->payload()->toArray();
+            $data = auth('seller')->user();
             $data['token'] = $token;
             $data['exp_token'] = $jwt['exp'];
             return $data;
@@ -32,7 +32,7 @@ class AuthRepository
     public function me()
     {
         try {
-            return auth('admin')->user();
+            return auth('seller')->user();
         } catch (\Exception $e) {
             throw $e;
             report($e);
@@ -43,7 +43,7 @@ class AuthRepository
     public function logout()
     {
         try {
-            return auth('admin')->logout();
+            return auth('seller')->logout();
         } catch (\Exception $e) {
             throw $e;
             report($e);
@@ -54,7 +54,7 @@ class AuthRepository
     public function refresh()
     {
         try {
-            return auth('admin')->parseToken()->refresh();
+            return auth('seller')->parseToken()->refresh();
         } catch (\Exception $e) {
             throw $e;
             report($e);
