@@ -35,6 +35,7 @@ $router->group(['prefix' => 'admin'], function () use ($router) {
 // SELLER ROUTES
 $router->group(['prefix' => 'seller'], function () use ($router) {
     $router->post('login', 'Seller\AuthController@login');
+    $router->post('login-by-google', 'Seller\AuthController@loginByGoogle');
 
     $router->group(['middleware' => ['auth:seller']], function () use ($router) {
         // Authentication
@@ -48,6 +49,7 @@ $router->group(['prefix' => 'seller'], function () use ($router) {
 // BUYER ROUTES
 $router->group(['prefix' => 'buyer'], function () use ($router) {
     $router->post('login', 'Buyer\AuthController@login');
+    $router->post('login-by-google', 'Buyer\AuthController@loginByGoogle');
 
     $router->group(['middleware' => ['auth:buyer']], function () use ($router) {
         // Authentication
