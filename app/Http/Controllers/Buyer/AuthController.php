@@ -29,6 +29,17 @@ class AuthController extends Controller
         }
     }
 
+    public function loginByGoogle(Request $request)
+    {
+        try {
+            $data = $this->repository->loginByGoogle($request);
+            return response()->success($data, 'Login with google successful!');
+        } catch (\Throwable $e) {
+            return response()->error($e->getMessage(), $e->getCode());
+        }
+    }
+
+
     public function logout()
     {
         try {
