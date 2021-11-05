@@ -30,7 +30,7 @@ return [
             'driver' => 'eloquent',
             'model' => \App\Models\Seller::class
         ],
-        'members' => [
+        'buyers' => [
             'driver' => 'eloquent',
             'model' => \App\Models\Buyer::class
         ],

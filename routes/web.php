@@ -32,7 +32,7 @@ $router->group(['prefix' => 'admin'], function () use ($router) {
 });
 
 
-// ADMIN ROUTES
+// SELLER ROUTES
 $router->group(['prefix' => 'seller'], function () use ($router) {
     $router->post('login', 'Seller\AuthController@login');
 
@@ -41,6 +41,19 @@ $router->group(['prefix' => 'seller'], function () use ($router) {
         $router->post('logout', 'Seller\AuthController@logout');
         $router->get('me', 'Seller\AuthController@me');
         $router->get('refresh', 'Seller\AuthController@refresh');
+
+    });
+});
+
+// BUYER ROUTES
+$router->group(['prefix' => 'buyer'], function () use ($router) {
+    $router->post('login', 'Buyer\AuthController@login');
+
+    $router->group(['middleware' => ['auth:buyer']], function () use ($router) {
+        // Authentication
+        $router->post('logout', 'Buyer\AuthController@logout');
+        $router->get('me', 'Buyer\AuthController@me');
+        $router->get('refresh', 'Buyer\AuthController@refresh');
 
     });
 });
