@@ -16,7 +16,7 @@ class FirebaseService
     }
 
     /**
-     * Get list user all from firebase
+     * Get list user all frompfirebase
      */
     public function listUsers()
     {
