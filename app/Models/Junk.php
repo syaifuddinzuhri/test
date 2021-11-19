@@ -10,7 +10,7 @@ class Junk extends Model
         'id',
         'category_id',
         'name',
-        'weigth',
+        'weight',
         'price'
     ];
 

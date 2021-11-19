@@ -13,7 +13,6 @@ class AuthRepository
     {
         try {
             $credentials = $request->only(['username', 'password']);
-
             if (!$token = auth('admin')->attempt($credentials)) {
                 throw new Exception("Username or password is wrong!", 401);
             };

@@ -1,27 +1,72 @@
 <?php
+
+use App\Models\Rating;
+
 class RatingRepository
 {
     public function getAll()
     {
+        try {
+            $rating = Rating::all();
+            return $rating;
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
-    public function create()
+    public function create($request)
     {
-        # code...
+        try {
+            $rating = Rating::create([
+                'seller_id' => $request->seller_id,
+                'buyer_id' => $request->buyer_id,
+                'star' => $request->star,
+                'comment' => $request->comment
+            ]);
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
-    public function update()
+    public function update($id, $request)
     {
-        # code...
+        try {
+            $rating = Rating::find($id);
+            $rating->buyer_id = $request->buyer_id;
+            $rating->seller_id = $request->seller_id;
+            $rating->star = $request->star;
+            $rating->comment = $request->comment;
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
-    public function show()
+    public function show($id)
     {
-        # code...
+        try {
+            $rating = Rating::find($id);
+            return $rating;
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
-    public function delete()
+    public function delete($id)
     {
-        # code...
+        try {
+            return Rating::find($id)->delete();
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 }

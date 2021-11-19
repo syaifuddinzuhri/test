@@ -3,10 +3,22 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AdminCategoryRequest;
+use App\Models\Category;
+use App\Repositories\Admin\CategoryRepository;
 use Illuminate\Http\Request;
+
+use function PHPUnit\Framework\returnSelf;
 
 class CategoryController extends Controller
 {
+
+    private $repository;
+
+    public function __construct(CategoryRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +26,12 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $category = $this->repository->getAll();
+            return response()->success($category, 'Find Data');
+        } catch (\Throwable $th) {
+            return response()->error($th->getMessage(), $th->getCode());
+        }
     }
 
     /**
@@ -33,9 +50,16 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AdminCategoryRequest $request)
     {
-        //
+        try {
+            $category = $this->repository->create($request);
+            return response()->success($category, 'Successful add data');
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
     /**
@@ -46,7 +70,14 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        try {
+            $category = $this->repository->show($id);
+            return response()->success($category, 'Data Found');
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
     /**
@@ -67,9 +98,16 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(AdminCategoryRequest $request, $id)
     {
-        //
+        try {
+            $category = $this->repository->update($request, $id);
+            return response()->success($category, 'Data Updated');
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
     /**
@@ -80,6 +118,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $category = $this->repository->delete($id);
+            return response()->success($category, 'Data Deleted');
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 }

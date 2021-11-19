@@ -27,7 +27,13 @@ $router->group(['prefix' => 'admin'], function () use ($router) {
         $router->post('logout', 'Admin\AuthController@logout');
         $router->get('me', 'Admin\AuthController@me');
         $router->get('refresh', 'Admin\AuthController@refresh');
-
+        $router->group(['prefix' => 'category'], function () use ($router) {
+            $router->get('all', 'Admin\CategoryController@index');
+            $router->get('detail/{id}', 'Admin\CategoryController@show');
+            $router->post('add', 'Admin\CategoryController@store');
+            $router->post('update/{id}', 'Admin\CategoryController@update');
+            $router->post('delete/{id}', 'Admin\CategoryController@destroy');
+        });
     });
 });
 
@@ -42,7 +48,6 @@ $router->group(['prefix' => 'seller'], function () use ($router) {
         $router->post('logout', 'Seller\AuthController@logout');
         $router->get('me', 'Seller\AuthController@me');
         $router->get('refresh', 'Seller\AuthController@refresh');
-
     });
 });
 
@@ -56,6 +61,5 @@ $router->group(['prefix' => 'buyer'], function () use ($router) {
         $router->post('logout', 'Buyer\AuthController@logout');
         $router->get('me', 'Buyer\AuthController@me');
         $router->get('refresh', 'Buyer\AuthController@refresh');
-
     });
 });
