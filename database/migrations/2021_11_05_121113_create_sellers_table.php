@@ -23,6 +23,7 @@ class CreateSellersTable extends Migration
             $table->string('address')->nullable();
             $table->string('date_of_birth')->nullable();
             $table->text('ktp')->nullable();
+            $table->double('balance')->nullable()->default(0);
             $table->string('token')->nullable();
             $table->text('firebase_uid')->nullable();
             $table->text('google_pic')->nullable();

@@ -17,6 +17,7 @@ class AddTableJunks extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('category_id');
             $table->string('name');
+            $table->string('photo');
             $table->double('weight')->default(0);
             $table->double('price')->default(0);
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

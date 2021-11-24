@@ -3,10 +3,17 @@
 namespace App\Http\Controllers\Buyer;
 
 use App\Http\Controllers\Controller;
+use App\Repositories\Admin\CategoryRepository;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    private $repository;
+
+    public function __construct(CategoryRepository $repository)
+    {
+        $this->repository = $repository;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,14 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        try {
+            $category = $this->repository->getAll();
+            return response()->success($category, 'Find Data');
+        } catch (\Throwable $th) {
+            throw $th;
+            report($th);
+            return $th;
+        }
     }
 
     /**
